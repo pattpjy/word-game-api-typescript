@@ -2,7 +2,7 @@ const sqlite3 = require("sqlite3").verbose(); //import sqlite
 
 // open database in memory by create database object, this opens the database connection automatically.
 let db = new sqlite3.Database(
-  "./db/chinook.db",
+  "./db/thai_words.db",
   sqlite3.OPEN_READWRITE,
   (err) => {
     if (err) {
