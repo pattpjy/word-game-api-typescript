@@ -22,7 +22,7 @@ app.get("/", (req: Request, res: Response) => {
 app.get("/api/v1/activities", async (req, res) => {
   const stuff = app.locals.activities;
   const something = res.json({ stuff });
-  res.send(something); 
+  res.send(something);
   // try {
   //   const data = await db("activities").select();
   //   res.send(data);
@@ -30,9 +30,8 @@ app.get("/api/v1/activities", async (req, res) => {
   //   console.log("Error", err);
   //   res.status(404).send(err);
   // }
-  
 });
 
 app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+  console.log(`🫰[server]: Server is running at http://localhost:${port}`);
 });
