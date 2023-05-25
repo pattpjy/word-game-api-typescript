@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from "express";
 const env: string = process.env.NODE_ENV || "development";
 import { Knex } from "knex";
-import { config } from "../db/knexfile";
+import { config } from "./db/knexfile";
 
 const configOptions = config[env];
 const db: Knex = require("knex")(configOptions);
@@ -27,5 +27,5 @@ app.get("/api/v1/thai_words", async (req: Request, res: Response) => {
 });
 
 app.listen(port, () => {
-  console.log(`🫰[server]: Server is running at http://localhost:${port}`);
+  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });
