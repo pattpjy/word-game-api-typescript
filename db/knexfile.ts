@@ -1,8 +1,8 @@
-import type { Knex } from "knex";
+import { Knex } from "knex";
 
 // Update with your config settings.
 
-const config: { [key: string]: Knex.Config } = {
+export const config: { [key: string]: Knex.Config } = {
   development: {
     client: "sqlite3",
     connection: {
@@ -10,6 +10,7 @@ const config: { [key: string]: Knex.Config } = {
     },
     seeds: { directory: "./seeds" },
     useNullAsDefault: true,
+    debug: true,
   },
 
   staging: {
@@ -44,5 +45,3 @@ const config: { [key: string]: Knex.Config } = {
     },
   },
 };
-
-module.exports = config;

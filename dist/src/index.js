@@ -13,30 +13,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const dotenv_1 = __importDefault(require("dotenv"));
-const activitiesData = require("./data.js");
-const cors = require("cors");
-dotenv_1.default.config();
+const env = process.env.NODE_ENV || "development";
+const knexfile_1 = require("../db/knexfile");
+const configOptions = knexfile_1.config[env];
+const db = require("knex")(configOptions);
 const app = (0, express_1.default)();
-const port = process.env.PORT || 3001;
+const port = Number(process.env.PORT) || 3001;
+console.log(configOptions);
 app.set("port", process.env.PORT || 3001);
-app.use(cors());
 app.use(express_1.default.json());
-app.locals.activities = activitiesData;
 app.get("/", (req, res) => {
     res.send("Welcome to the word game database⚡️"); //return a string with a welcome message
 });
-app.get("/api/v1/activities", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const stuff = app.locals.activities;
-    const something = res.json({ stuff });
-    res.send(something);
-    // try {
-    //   const data = await db("activities").select();
-    //   res.send(data);
-    // } catch (err) {
-    //   console.log("Error", err);
-    //   res.status(404).send(err);
-    // }
+app.get("/api/v1/thai_words", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const data = yield db.select("*").from("thai_words");
+        res.send(data);
+    }
+    catch (err) {
+        console.log("Error", err);
+        res.status(404).send(err);
+    }
 }));
 app.listen(port, () => {
     console.log(`🫰[server]: Server is running at http://localhost:${port}`);
