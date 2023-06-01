@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from "express";
 const env: string = process.env.NODE_ENV || "development";
 import { Knex } from "knex";
-import { config } from "./db/knexfile";
+import config from "./knexfile";
 
 const configOptions = config[env];
 const db: Knex = require("knex")(configOptions);

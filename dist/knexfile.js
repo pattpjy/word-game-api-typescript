@@ -1,14 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.config = void 0;
-// Update with your config settings.
-exports.config = {
+const config = {
     development: {
         client: "sqlite3",
         connection: {
-            filename: "./dev.sqlite3",
+            filename: "./db/dev.sqlite3",
         },
-        seeds: { directory: "./seeds" },
+        seeds: { directory: "./db/seeds" },
+        migrations: { directory: "./db/migrations" },
         useNullAsDefault: true,
         debug: true,
     },
@@ -43,3 +42,4 @@ exports.config = {
         },
     },
 };
+exports.default = config;
