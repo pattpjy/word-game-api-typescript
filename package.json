@@ -6,8 +6,8 @@
   "scripts": {
     "knex": "knex",
     "migrate": "NODE_ENV=development knex migrate:latest --knexfile='db/knexfile.js'",
-    "unmigrate": "knex migrate:rollback --knexfile='./db/knexfile.js'",
-    "seed": "knex seed:run --knexfile='./db/knexfile.js'",
+    "unmigrate": "knex migrate:rollback --knexfile='./knexfile.ts'",
+    "seed": "knex seed:run --knexfile='./knexfile.js'",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
     "start": "node dist/src/index.js",
