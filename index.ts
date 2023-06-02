@@ -2,11 +2,15 @@ import express, { Express, Request, Response } from "express";
 const env: string = process.env.NODE_ENV || "development";
 import { Knex } from "knex";
 import config from "./knexfile";
+import cors from "cors";
 
 const configOptions = config[env];
 const db: Knex = require("knex")(configOptions);
 const app: Express = express();
 const port: number = Number(process.env.PORT) || 3001;
+
+app.use(cors());
+
 console.log(configOptions);
 app.set("port", process.env.PORT || 3001);
 
