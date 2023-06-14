@@ -22,7 +22,11 @@ app.get("/", (req: Request, res: Response) => {
 
 app.get("/api/v1/thai_words", async (req: Request, res: Response) => {
   try {
-    const data = await db.select("*").from("thai_words");
+    const data = await db
+      .select("*")
+      .from("thai_words")
+      .orderByRaw("RANDOM()")
+      .limit(6);
     res.send(data);
   } catch (err) {
     console.log("Error", err);
@@ -30,14 +34,15 @@ app.get("/api/v1/thai_words", async (req: Request, res: Response) => {
   }
 });
 
-app.get(`/api.v1/thai_words/random`, async (req: Request, res: Response) => {
+//route for random words from selected category
+app.get(`/api/v1/thai_words/random`, async (req: Request, res: Response) => {
   try {
     const category = req.query.category as string;
     const data = await db
       .select("*")
       .from("thai_words")
-      .where("category", category)
-      .orderByRaw("RAND()")
+      .where("categories", category)
+      .orderByRaw("RANDOM()")
       .limit(6);
     res.send(data);
   } catch (err) {
