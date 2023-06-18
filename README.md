@@ -16,7 +16,7 @@ This repository contains the backend server code for the Thai Game, a language l
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/thai-game-backend.git
+   git clone https://github.com/pattpjy/thai-game-backend.git
    ```
 
 2. Navigate to the project directory:
@@ -80,5 +80,5 @@ The Thai Game Backend was developed as part of a collaborative effort. We would 
 
 ## Contact
 
-If you have any questions or need further assistance, please feel free to contact us at [email protected]
+If you have any questions or need further assistance, please feel free to submit issue or start a discussion. 
 
