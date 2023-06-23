@@ -29,7 +29,28 @@ app.get("/", (req, res) => {
 });
 app.get("/api/v1/thai_words", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield db.select("*").from("thai_words");
+        const data = yield db
+            .select("*")
+            .from("thai_words")
+            .orderByRaw("RANDOM()")
+            .limit(6);
+        res.send(data);
+    }
+    catch (err) {
+        console.log("Error", err);
+        res.status(404).send(err);
+    }
+}));
+//route for random words from selected category
+app.get(`/api/v1/thai_words/random`, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const category = req.query.category;
+        const data = yield db
+            .select("*")
+            .from("thai_words")
+            .where("categories", category)
+            .orderByRaw("RANDOM()")
+            .limit(6);
         res.send(data);
     }
     catch (err) {
