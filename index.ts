@@ -50,22 +50,6 @@ app.get(`/api/v1/thai_words/random`, async (req: Request, res: Response) => {
     res.status(404).send(err);
   }
 });
-app.get(
-  `/api/v1/thai_words/random/all`,
-  async (req: Request, res: Response) => {
-    try {
-      const data = await db
-        .select("*")
-        .from("thai_words")
-        .orderByRaw("RANDOM()")
-        .limit(6);
-      res.send(data);
-    } catch (err) {
-      console.log("Error", err);
-      res.status(404).send(err);
-    }
-  }
-);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
