@@ -1,36 +1,33 @@
 import express, { Express, Request, Response } from "express";
-const env: string = process.env.NODE_ENV || "development";
 import { Knex } from "knex";
 import config from "./knexfile";
 import cors from "cors";
+import * as http from "http";
+const env: string = process.env.NODE_ENV || "development";
+const configOptions = config[env]; // Verify that env and config options match
 
-const configOptions = config[env];
 const db: Knex = require("knex")(configOptions);
 const app: Express = express();
 const port: number = Number(process.env.PORT) || 3001;
 
 app.use(cors());
 
-console.log(configOptions);
 app.set("port", process.env.PORT || 3001);
 
 app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Welcome to the word game database⚡️"); //return a string with a welcome message
+  res.status(200).send("Welcome to the word game database⚡️"); //return a string with a welcome message
 });
 
 app.get("/api/v1/thai_words", async (req: Request, res: Response) => {
   try {
-    const data = await db
-      .select("*")
-      .from("thai_words")
-      .orderByRaw("RANDOM()")
-      .limit(6);
-    res.send(data);
+    const data = await db.select("*").from("thai_words").orderByRaw("RANDOM()");
+    // .limit(6);
+    res.status(200).send(data);
   } catch (err) {
     console.log("Error", err);
-    res.status(404).send(err);
+    res.status(404).send((err as Error).message || "An error occurred");
   }
 });
 
@@ -51,6 +48,13 @@ app.get(`/api/v1/thai_words/random`, async (req: Request, res: Response) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+const server = app.listen(port, () => {
+  const address = server.address();
+  if (address && typeof address !== "string") {
+    const { address: host, port } = address;
+    console.log(`Server listening at http://${host}:${port}`);
+  }
 });
+
+// Export the app and server for further usage
+export { app, server };
